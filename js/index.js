@@ -320,7 +320,7 @@ const set = new Set([1, 2, 3])
 const arr = [...set];
 console.log(arr);
 
-// const [a, b] = [2, 3, 4, 5, 8, 2, 62];
+// const [a, b, ...args] = [2, 3, 4, 5, 8, 2, 62];
 // console.log('args: ', args);
 
 // *

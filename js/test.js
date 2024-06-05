@@ -1,3 +1,2 @@
-const fn = require('./index');
+// const fn = require('./index');
 
-fn('Tom', 'Helen');

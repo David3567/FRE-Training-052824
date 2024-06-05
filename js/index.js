@@ -76,6 +76,8 @@
 // str = 'cvb';
 // console.log(trr);
 
+// const { json } = require("stream/consumers");
+
 // // * Object Data or reference Data: Object, Array,
 // var arr = [123, 456];
 // var wrr = arr;
@@ -420,6 +422,28 @@
 // 	{ userid: 87, role: "Shaman" },
 // 	{ userid: 12, role: "Hunter" },
 // ];
+
+// function mergeLists(...args) {
+// 	const arr = args.reduce((acc, cur) => {
+// 		return [...acc, ...cur];
+// 	}, []);
+
+// 	const map = {};
+// 	arr.forEach((ele) => {
+// 		map[ele.userid] = {
+// 			...{ userid: null, name: null, role: null },
+// 			...map[ele.userid],
+// 			...ele,
+// 		};
+// 	});
+
+// 	return Object.values(map);
+// }
+
+// console.log(mergeLists(names, roles));
+// {
+//   2: { userid: 2, role: "Mage" } // {...map[2], ...{ userid: 2, name: "Velen" }}
+// }
 // [
 //   {
 //     userid: 2, name:  "Velen", role: "Mage"
@@ -428,6 +452,7 @@
 //     userid: 44, name:  "Cenarius", role: null
 //   },
 //   ...
+// ]
 //(function(require, export, module....) {})
 
 // * closure
@@ -489,14 +514,15 @@
 
 // * currying
 // //^ ~~~~~~interview question~~~~~~~~~~~~
-// const callback1 = (a) => a + 2; // 6
-// const callback2 = (b) => b * 2; // 12
-// const callback3 = (c) => c - 2; // 10
+// const callback1 = (a) => a + 2; // 8
+// const callback2 = (b) => b * 2; // 16
+// const callback3 = (c) => c - 2; // 14
 
-// console.log(runAll(4)(callback1, callback2, callback3)); // 10
-// function runAll(initNum) {
+// console.log(runAll(6)(then1, then2, then3)); // 14
+
+// function runAll(num) {
 //   return function(...args) {
-
+//     return args.reduce((acc, cur) => cur(acc), num);
 //   }
 // }
 
@@ -518,6 +544,7 @@
 //   name: 'hello',
 // }
 
+// * arrow function
 // const obj = {
 // 	abcd: "Dio",
 // 	foo() {
@@ -550,11 +577,199 @@
 // callName.call(obj, "hello", "hi"); // 1, + 100
 // callName.apply(obj, ["hello", "hi"]); // 1, + 1[100]
 
-// * arrow function
-
 // * event loop
+// var i = 0;
+// for (let i = 0; i < 5; i++) {
+//   // (function(v) {
+//     setTimeout(() => console.log(i), i * 1000);
+//   // })(i);
+// } // 0, 1, 2, 3, 4
+
+// call stack; [() => console.log(v) //[v = 2]]
+// async api:
+/* () => console.log(i) //[v = 0] wait 0s
+() => console.log(i)// [v = 1] wait 1s
+() => console.log(i) wait 2s
+... */
+// tesk queue:
+// [
+//   () => console.log(i),//[v = 0]
+//   () => console.log(i),//[v = 1]
+//   ...
+// ]
+
 // * XHR
+// function render(ele, tmp) {
+// 	ele.innerHTML = tmp;
+// }
+// function print(todo) {
+// 	const body = document.getElementsByTagName("body");
+// 	const tmp = `<h1>${todo.title}</h1>`;
+// 	render(body[0], tmp);
+// }
+
+// function getTodo(id, callback) {
+// 	const baseUrl = "https://jsonplaceholder.typicode.com";
+// 	const todopath = "todos";
+
+// 	const xhttp = new XMLHttpRequest();
+// 	xhttp.onreadystatechange = function () {
+// 		if (this.readyState == 4 && this.status == 200) {
+// 			callback(JSON.parse(xhttp.response));
+// 		}
+// 	};
+// 	xhttp.open("GET", [baseUrl, todopath, id].join("/"), true);
+// 	xhttp.send();
+// }
+// getTodo(18, print);
+
 // * callback function; callback hell
+// const foo = () => console.log("foo");
+// const getRandomTime = () => Math.floor(Math.random() * 6);
+
+// const callFnByRandomTime = (callback) => {
+// 	const timer = getRandomTime();
+// 	console.log(`wait for ${timer}s`);
+
+// 	setTimeout(callback, timer * 1000);
+// };
+// callFnByRandomTime(() => {
+//   callFnByRandomTime(() => {
+//     callFnByRandomTime(() => {
+//       callFnByRandomTime(() => {
+//         callFnByRandomTime(() => {
+//           callFnByRandomTime(() => {
+//             callFnByRandomTime(() => {
+//               callFnByRandomTime(() => {
+//                 foo();
+//               });
+//             });
+//           });
+//         });
+//       });
+//     });
+//   });
+// });
+
 // * Promise
+// new Promise((resolve, reject) => {
+// 	resolve(12);
+// }).then((e) => {
+// 	console.log(e);
+// });
+
+// const baseUrl = "https://jsonplaceholder.typicode.com";
+// const todopath = "todos";
+
+// function getTodo(url) {
+// 	return new Promise((res, rej) => {
+// 		const xhttp = new XMLHttpRequest();
+// 		xhttp.onreadystatechange = function () {
+// 			if (this.readyState == 4 && this.status == 200) {
+// 				res({
+// 					json: () => JSON.parse(xhttp.response),
+// 				});
+// 			}
+// 		};
+// 		xhttp.open("GET", url, true);
+// 		xhttp.send();
+// 	});
+// }
+// // getTodo(18, print);
+// function render(ele, tmp) {
+// 	ele.innerHTML = tmp;
+// }
+// function print(todo) {
+// 	const body = document.getElementsByTagName("body");
+// 	const tmp = `<h1>${todo.title}</h1>`;
+// 	render(body[0], tmp);
+// }
+// getTodo("https://jsonplaceholder.typicode.com/todos/1")
+// 	.then((response) => response.json())
+// 	.then((json) => {
+// 		print(json);
+// 	});
+
 // * MyPromise
+class MyPromise {
+	thenCallbackQueue = [];
+	// const callback1 = (a) => a + 2; // 8
+	// const callback2 = (b) => b * 2; // 16
+	// const callback3 = (c) => c - 2; // 14
+
+	constructor(executor) {
+		try {
+			executor(this.#resolve, this.#reject.bind(this));
+		} catch (error) {
+			this.#reject(error);
+		}
+	}
+
+	#resolve = (resdata) => {
+		try {
+			setTimeout(() => {
+				let mark = resdata;
+				while (this.thenCallbackQueue.length) {
+					const thencb = this.thenCallbackQueue.shift();
+					if (mark instanceof MyPromise) {
+						mark.then((data) => {
+							mark = data;
+						});
+					} else {
+						mark = thencb(mark);
+					}
+				}
+			}, 0);
+		} catch (error) {
+			this.#reject(error);
+		}
+	};
+	// function resolve(num) {
+	//   return function(...args) {
+	//     return args.reduce((acc, cur) => cur(acc), num);
+	//   }
+	// }
+
+	#reject() {
+		setTimeout(() => {
+			console.log("reject: ", this);
+			console.log("im reject");
+		}, 0);
+	}
+
+	then(thenCB) {
+		this.thenCallbackQueue.push(thenCB);
+		return this;
+	}
+
+	// catch(catchCB) {
+	//   this.thenCallbackQueue.push(thenCB);
+	// 	return this;
+	// }
+
+	static all() {}
+}
+
+const p = new MyPromise((resolve, reject) => {
+	console.log("hello");
+	resolve("Antra");
+})
+	.then((e) => {
+		console.log(e); // hi
+		return e + " world";
+	})
+	.then((e) => {
+		console.log(e); // hi world
+		return new MyPromise((res) => {}).then();
+	})
+	.then((e) => {
+		console.log(e); // hi world
+		return e;
+	})
+	.then((e) => {
+		console.log(e); // hi world
+		return e;
+	});
+//  task queue: [resolve('hi')];
+
 // * MyFetch

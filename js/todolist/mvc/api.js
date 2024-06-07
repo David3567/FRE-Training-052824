@@ -1,6 +1,7 @@
 // * ~~~~~~~~~~~~~~~~~~~~~~~~ API ~~~~~~~~~~~~~~~~~~~~~~~~
 export const API = (() => {
-	const baseUrl = "https://jsonplaceholder.typicode.com";
+	// const baseUrl = "https://jsonplaceholder.typicode.com";
+  const baseUrl = 'http://localhost:4232';
 	const todoPath = "todos";
 
 	const getTodos = () =>

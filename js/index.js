@@ -24,7 +24,7 @@
  *
  * rest parameter vs. spread operator
  *
- * object copy
+ * object copy {...spread}, JSON, lodash
  *
  * @class
  * iife
@@ -52,6 +52,12 @@
  *   Event bubbling
  *
  */
+
+// let obj = {};
+// obj = {...obj};
+
+// setter
+
 // // wrap
 // (function(exports, require, module, __filename, __dirname) {
 // var a = undefined;
@@ -132,28 +138,38 @@
 
 // * class base
 // class Person {
-// 	#name = "Person";
+// 	#name = {
+//     a: 'hi',
+//     b: 'hello'
+//   };
 // 	_age;
 
-// 	get name() {
-// 		return this.#name;
-// 	}
-// 	set name(newname) {
-// 		console.log("hello from Antra"); // trigger the rerender;
-// 		this.#name = newname;
-// 	}
+	// get name() {
+	// 	return this.#name;
+	// }
+	// set name(newname) {
+	// 	console.log("hello from Antra"); // trigger the rerender;
+	// 	this.#name = newname;
+	// }
 
-// 	constructor(n, age) {
-// 		this.#name = n;
-// 		this._age = age;
-// 	}
-// 	sayHello() {
-// 		console.log(this.#name + ": Hello!");
-// 	}
+	// constructor(n, age) {
+	// 	this.#name = n;
+	// 	this._age = age;
+	// }
+	// sayHello() {
+	// 	console.log(this.#name + ": Hello!");
+	// }
 // 	static sayHello() {
 // 		new Person("Jack", 12).sayHello();
 // 	}
 // }
+// const p = new Person({a: '111', b: 1213}, 12);
+// p.name.a = 'hello';
+// console.log('a: ', p.name.a);
+
+// p.name = {...p.name, a: '1234'};
+// console.log(p);
+
 
 // class Employee extends Person {
 // 	constructor(name, age, company) {
@@ -182,8 +198,9 @@
 // 	this.company = company;
 // }
 // Employee.prototype = Object.create(Person.prototype); // chain, inheritance
-// // Employee.prototype = { ...Person.prototype };
-// // Employee.prototype.__proto__ = Person.prototype;
+// Employee.prototype = { ...Person.prototype };
+// Employee.prototype = Person.prototype;
+// Employee.prototype.__proto__ = Person.prototype;
 
 // Person.prototype.hi = function () {
 // 	console.log("hi");
@@ -458,14 +475,14 @@
 // * closure
 
 // function foo(a) {
+  
+
 // 	return function (b) {
-// 		return function(c) {
-//a++;
-//       return a + b + c;
-//     }
+//       return a + b;
 // 	}
 // }
 // const bar = foo(7);
+// const baz = foo(12);
 // bar(1); // [a = 7]
 // bar(7); // [a = 7]
 // bar(2); // [a = 7]
@@ -547,24 +564,41 @@
 // * arrow function
 // const obj = {
 // 	abcd: "Dio",
-// 	foo() {
+// 	foo: function() {
 // 		this.hello = "hello";
 // 		console.log("foo: ", this); // <------- this
 
-//     (() => {
-//       console.log("arrow: ", this); // <------- this, same
-//     })();
+//     // (() => {
+//     //   console.log("arrow: ", this); // <------- this, same
+//     // })();
 
-//     function bar() {
-// 			console.log("function: ", this); // <------- this
+//     function bar(a, b) {
+// 			console.log("function: ", this, a, b); // <------- this
 // 		}
+//     bar.call(this, 1, 2);
+//     bar.apply(this, [1, 2]);
 //     const baz = bar.bind(this);
-//     baz();
+//     baz(1, 2);
 // 	},
 // };
 // obj.foo();
+// console.log(global);
+// (function(exports, require, module, __dirname, __filename) {
 
-// // * call, apply, bind
+// module.exports = {
+//   name: 'David'
+// }
+// console.log(global);
+
+// console.log(module);
+// console.log(this);
+// (function() {
+//   console.log(this);
+// })();
+
+// })
+
+// * call, apply, bind
 // function callName(m, n) {
 // 	// 100
 // 	console.log(this.abcd, m, n);
@@ -578,10 +612,11 @@
 // callName.apply(obj, ["hello", "hi"]); // 1, + 1[100]
 
 // * event loop
-// var i = 0;
-// for (let i = 0; i < 5; i++) {
+// // var i = 0;
+// for (var i = 0; i < 5; i++) {
 //   // (function(v) {
-//     setTimeout(() => console.log(i), (5 - i) * 1000);
+//   //   v = 0
+//     setTimeout(() => console.log(v), (5 - v) * 1000);
 //   // })(i);
 // } // 0, 1, 2, 3, 4
 

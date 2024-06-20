@@ -3,8 +3,10 @@ import { Component } from '@angular/core';
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
-  styleUrl: './app.component.scss'
+  // template: `
+  //   <h1>Hello Angular!</h1>
+  //   <h4>Hello team</h4>
+  // `,
+  styleUrl: './app.component.scss',
 })
-export class AppComponent {
-  title = 'module-base-basic';
-}
+export class AppComponent {}

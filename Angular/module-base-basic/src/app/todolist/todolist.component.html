@@ -1,0 +1,17 @@
+<main class="content">
+  <section class="todolist">
+    <header class="todolist__header">todo list</header>
+    <input class="todolist__input" />
+    <ul id="todolist_container">
+      <app-todo-item
+        *ngFor="let item of todos"
+        [item]="item"
+        [hello]="'hi'"
+        (deleteItem)="deleteTodo($event)"
+      ></app-todo-item>
+      <!-- <li></li> -->
+    </ul>
+  </section>
+</main>
+
+<!-- <div class="container">Hello</div> -->

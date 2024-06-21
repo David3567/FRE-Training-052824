@@ -1,44 +1,30 @@
-import { Component } from '@angular/core';
+import { Component, HostListener, OnInit } from '@angular/core';
 import { Todo } from '../interfaces/todo.interface';
+import { TodoService } from '../services/todo.service';
+import { interval, take } from 'rxjs';
 
 @Component({
   selector: 'app-todolist',
   templateUrl: './todolist.component.html',
   styleUrl: './todolist.component.scss',
 })
-export class TodolistComponent {
+export class TodolistComponent implements OnInit {
+  // variable
   container = 'container_test';
+  todotitle: string = '';
 
-  todos: Todo[] = [
-    {
-      userId: 1,
-      id: 1,
-      title: 'delectus aut autem',
-      completed: false,
-    },
-    {
-      userId: 1,
-      id: 2,
-      title: 'quis ut nam facilis et officia qui',
-      completed: false,
-    },
-    {
-      userId: 1,
-      id: 3,
-      title: 'fugiat veniam minus',
-      completed: false,
-    },
-    {
-      userId: 1,
-      id: 4,
-      title: 'et porro tempora',
-      completed: true,
-    },
-  ];
+  // lifecycle
+  constructor(public todoService: TodoService) {}
+  ngOnInit(): void {
+    this.todoService.getTodos();
+  }
 
-  constructor() {}
-
+  // methods
   deleteTodo(id: number) {
     console.log('todolist: ', id);
+  }
+
+  onAddTodo(title: string) {
+    console.log(title);
   }
 }

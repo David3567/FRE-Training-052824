@@ -1,10 +1,15 @@
 <main class="content">
   <section class="todolist">
     <header class="todolist__header">todo list</header>
-    <input class="todolist__input" />
+    <input
+      class="todolist__input"
+      [(ngModel)]="todotitle"
+      #input
+      (keyup.enter)="onAddTodo(input.value)"
+    />
     <ul id="todolist_container">
       <app-todo-item
-        *ngFor="let item of todos"
+        *ngFor="let item of todoService.todos$ | async"
         [item]="item"
         [hello]="'hi'"
         (deleteItem)="deleteTodo($event)"

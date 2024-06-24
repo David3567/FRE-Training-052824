@@ -10,10 +10,9 @@ import { Subscription } from 'rxjs';
 })
 export class PipesComponent implements OnInit, OnDestroy {
   obj = {
-    name: 'jojo',
+    // name: 'jojo',
     age: '23',
     company: 'jump',
-    
   };
   counter = 0;
   // arr = [{a: 1}, {b: 2}]
@@ -42,8 +41,10 @@ export class PipesComponent implements OnInit, OnDestroy {
 
   sorting(a: KeyValue<string,string>, b: KeyValue<string,string>): number {
     // return 0;
-    return a.key.localeCompare(b.key);
-    // return -a.key.localeCompare(b.key);
+    console.log(a.key)
+    console.log(a.key.localeCompare(b.key))
+    // return a.key.localeCompare(b.key);
+    return -a.key.localeCompare(b.key);
   }
 
 

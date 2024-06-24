@@ -1,30 +1,37 @@
-import { Directive, ElementRef, HostBinding, HostListener, Input } from '@angular/core';
+import { Directive, ElementRef, HostBinding, HostListener, Input, OnInit } from '@angular/core';
 
 @Directive({
   selector: '[appColor]'
 })
-export class ColorDirective {
+export class ColorDirective implements OnInit {
   color!: string;
   @Input() colorpass!: string;
   @Input() defaultColor = '';
 
+
+  constructor(private ele: ElementRef) { }
+ 
   @HostListener('mouseenter')
-  onMouserEnter() {
-    this.highlight(this.colorpass || this.defaultColor || 'red');
+  onMouseEnter() {
+    this.highlight(this.colorpass || this.defaultColor);
   }
 
   @HostListener('mouseleave')
-  onMouserLeave() {
+  onMouseLeave() {
     this.highlight('');
   }
 
-  // @HostBinding('disabled') disable: boolean = true;
-  @HostBinding('style.border') border: string = "5px solid blue";
+  @HostBinding('style.border') border!: string;
 
-  constructor(private ele: ElementRef) { }
+  ngOnInit() {
+    this.border = "5px solid grey";
+  }
 
   highlight(color: string) {
     this.ele.nativeElement.style.backgroundColor = color;
   }
+
+
+
 
 }

@@ -1,8 +1,7 @@
 
 <ul>
-  <li *ngFor="let movie of movies; let i=index; trackBy: trackByFn;">
-    <!-- <li *ngFor="let movie of movies; let i=index"> -->
-    {{i}}. {{ movie }}  <button (click)="remove(i)">remove</button>
+  <li *ngFor="let movie of movies; let i=index; ">
+    {{i}}. {{ movie.title }}  <button (click)="remove(i)">remove</button>
   </li>
 </ul>
  

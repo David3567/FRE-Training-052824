@@ -8,11 +8,12 @@ import { Component, OnInit } from '@angular/core';
 export class CustompipeComponent implements OnInit {
   Fahrenheit!: number;
   celcius!: number;
-  str: string = "abcsdfsdfdsffdsfdsfdsfdfsdfdsfds";
+  str: string = "The localeCompare method in JavaScript is used to compare two strings according to the sort order of the current locale. ";
 
   constructor() { }
 
   ngOnInit(): void {
   }
+  //the locale...
 
 }

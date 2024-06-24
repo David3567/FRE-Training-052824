@@ -42,6 +42,6 @@ export class NgforComponent implements OnInit {
 export interface Movie {
   title : string;
   director : string;
-  cast : string;
+  cast?: string;
   releaseDate : string;
 }

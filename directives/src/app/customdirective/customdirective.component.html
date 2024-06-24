@@ -1,12 +1,8 @@
 <h1>Pick a hightcolor</h1>
 
-<input type="radio" name="color" id="color" (click)=" color = 'green'"> Green
+<input type="radio" name="color" id="color" (click)="color = 'green'" /> Green
+<input type="radio" name="color" id="color" (click)="color = 'yellow'" /> Yellow
 
-<input type="radio" name="color" id="color" (click)=" color = 'yellow'"> Yellow
+<p appColor [colorpass]="color" defaultColor="grey">highlight me</p>
 
-<p appColor [colorpass]="color" defaultColor="grey">highlight me </p>
-
-<input appColor type="text" placeholder="can not type anything"> Input box
-
-
-
+<input appColor type="text" placeholder="can not type anything" /> Input box

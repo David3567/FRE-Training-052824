@@ -1,0 +1,24 @@
+<label for="check">Check this</label>
+<input type="checkbox" [(ngModel)]="show" >
+
+<div *ngIf="show">
+    <h1> show me: check</h1>
+</div>
+
+<div *ngIf="!show">
+    <h1> show me: uncheck</h1>
+</div>
+
+<hr>
+<h1>display</h1>
+<div style="display:none">
+    <h1>display none</h1>
+</div>
+
+<h1>visibility</h1>
+<div style="visibility:hidden">
+    <h1>hidden</h1>
+</div>
+
+<hr>
+

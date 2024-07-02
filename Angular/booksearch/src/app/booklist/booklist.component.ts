@@ -1,6 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, inject } from '@angular/core';
 import { BookService } from '../services/book.service';
-import { Observable, Subscription } from 'rxjs';
+import { Observable, Subject, Subscription, takeUntil } from 'rxjs';
 import { Card } from '../interfaces/book.interface';
 
 @Component({
@@ -10,20 +10,29 @@ import { Card } from '../interfaces/book.interface';
 })
 export class BooklistComponent implements OnInit {
   booklist: Card[] = [];
-  sbp = new Subscription();
+  // sbp = new Subscription();
+  notifier = new Subject();
+  // service = inject(BookService);
 
   constructor(private bookService: BookService) {}
 
   ngOnInit(): void {
-    this.sbp = this.bookService.booklist$.subscribe((data: Card[]) => {
-      this.booklist = data;
-    });
+    this.bookService.booklist$
+      .pipe(takeUntil(this.notifier))
+      .subscribe((data: Card[]) => {
+        this.booklist = data;
+      });
   }
   ngOnDestroy(): void {
-    this.sbp.unsubscribe();
+    this.stopObs();
   }
 
   onClick(book: Card) {
     this.bookService.manageWishList(book);
+  }
+
+  private stopObs() {
+    this.notifier.next(null);
+    this.notifier.complete();
   }
 }

@@ -1,5 +1,5 @@
 import { HttpClient } from '@angular/common/http';
-import { Injectable, inject } from '@angular/core';
+import { Inject, Injectable, inject } from '@angular/core';
 import {
   BehaviorSubject,
   Observable,
@@ -10,19 +10,21 @@ import {
   tap,
 } from 'rxjs';
 import { Book, Card, ResData } from '../interfaces/book.interface';
+import { APIURL } from '../app.module';
 
-@Injectable({
-  providedIn: 'root',
-})
+@Injectable()
 export class BookService {
-  private readonly apiURL = 'https://www.googleapis.com/books/v1/volumes?q=';
+  // private readonly apiURL =
   private books$ = new Subject<Card[]>();
   booklist$ = this.books$.asObservable();
 
   private wishes$ = new BehaviorSubject<Card[]>([]);
   wishlist$ = this.wishes$.asObservable();
 
-  constructor(private http: HttpClient) {}
+  constructor(
+    private http: HttpClient,
+    @Inject(APIURL) private apiURL: string
+  ) {}
   // private http = inject(HttpClient);
 
   searchBooks(bookName: string): Observable<Card[]> {

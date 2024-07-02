@@ -5,6 +5,7 @@ import { TodoService } from './services/todo.service';
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss',
+  providers: [],
 })
 export class AppComponent {
   constructor(private todoService: TodoService) {

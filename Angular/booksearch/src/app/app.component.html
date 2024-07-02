@@ -1,5 +1,9 @@
-<app-search></app-search>
+<!-- <app-search></app-search>
 <hr />
 <app-booklist></app-booklist>
 <hr />
-<app-wishlist></app-wishlist>
+<app-wishlist></app-wishlist> -->
+
+<div *ngFor="let item of obj | keyvalue : order">
+  {{ item.key }} - {{ item.value }}
+</div>

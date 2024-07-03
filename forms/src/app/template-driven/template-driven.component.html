@@ -1,1 +1,22 @@
+<form #contactForm="ngForm" (ngSubmit)="onSubmit(contactForm)">
+    <div>
+        <label for="name">Name</label>
+        <input type="text"
+        id="name"
+        placeholder="type name..."
+        name="name"
+        #name="ngModel"
+        ngModel>
+    </div>
+    <div>
+        <label for="email">Email</label>
+        <input type="text"
+        id="email"
+        name="email"
+        placeholder="type email..."
+        ngModel>
+    </div>
 
+    <button type="submit">Submit</button>
+
+</form>

@@ -4,10 +4,9 @@ import { AbstractControl, FormBuilder, FormGroup } from '@angular/forms';
 @Component({
   selector: 'app-selectall',
   templateUrl: './selectall.component.html',
-  styleUrls: ['./selectall.component.css']
+  styleUrls: ['./selectall.component.css'],
 })
 export class SelectallComponent implements OnInit {
-
   form!: FormGroup;
   selectedItems: string[] = [];
 
@@ -23,16 +22,15 @@ export class SelectallComponent implements OnInit {
     'Halloween Kills (2021)',
   ];
 
-  constructor(private fb: FormBuilder) {
-   }
+  constructor(private fb: FormBuilder) {}
 
-   get selectall() {
-    return this.form.get('selectall')
-   }
+  get selectall() {
+    return this.form.get('selectall');
+  }
 
-   get options(): AbstractControl | any  {
+  get options(): AbstractControl | any {
     return this.form.get('options');
-   }
+  }
 
   ngOnInit(): void {
     this.form = this.fb.group({
@@ -42,36 +40,45 @@ export class SelectallComponent implements OnInit {
           acc[cur] = false;
           return acc;
         }, {})
-      )
-    })
+      ),
+    });
 
     this.toggleitems();
     this.selectallitem();
   }
 
   toggleitems() {
-    this.movies.forEach((item:string) => {
+    this.movies.forEach((item: string) => {
       this.options.get(item).valueChanges.subscribe((val: boolean) => {
         if (val && !this.selectedItems.includes(item)) {
           this.selectedItems.push(item);
         } else if (!val) {
-          this.selectedItems = this.selectedItems.filter(ele => ele !== item);
+          this.selectedItems = this.selectedItems.filter((ele) => ele !== item);
         }
         console.log(this.selectedItems);
-        this.selectall?.setValue(this.selectedItems.length === this.movies.length, {emitEvent: false} );
-      })
-    })
+        this.selectall?.setValue(
+          this.selectedItems.length === this.movies.length,
+          { emitEvent: false }
+        );
+      });
+    });
   }
 
   selectallitem() {
     this.selectall?.valueChanges.subscribe((val: boolean) => {
-      Object.values(this.options.controls).forEach((control: any) => {
-        control.setValue(val);
-      })
-    })
+      this.setAllItemsValue(val);
+    });
   }
 
+  setAllItemsValue(val: boolean) {
+    Object.values(this.options.controls).forEach((control: any) => {
+      control.setValue(val);
+    });
+  }
 
+  onClearAll() {
+    this.setAllItemsValue(false);
+    this.selectall?.setValue(false);
+    this.selectedItems = [];
+  }
 }
-
-

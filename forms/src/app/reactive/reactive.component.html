@@ -1,19 +1,16 @@
 <form [formGroup]="contactForm" (ngSubmit)="onSubmit()">
+  <label for="name">Name</label>
+  <input type="text" id="name" formControlName="name" />
 
-    <label for="name">Name</label>
-    <input type="text" id="name" formControlName="name">
+  <label for="email">Email</label>
+  <input type="email" id="email" formControlName="email" />
 
-    <label for="email">Email</label>
-    <input type="email" id="email" formControlName="email">
-
-    <button type="submit">Submit</button>
+  <button type="submit">Submit</button>
 </form>
 
-
-
-
 <p>
-    // 1.1Add name, email fields and add a submit button
-    // 1.2On submit button, send the data back to the app parent component using output() and show it in the UI
-    // 2 Pass the form data to reactive(contact-form) component using input() and display it in the form
+  // 1.1Add name, email fields and add a submit button // 1.2On submit button,
+  send the data back to the app parent component using output() and show it in
+  the UI // 2 Pass the form data to reactive(contact-form) component using
+  input() and display it in the form
 </p>

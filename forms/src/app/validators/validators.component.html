@@ -1,0 +1,20 @@
+<form [formGroup]="form" (ngSubmit)="onSubmit()">
+  <p>
+    <label for="name">Name</label>
+    <input type="text" id="name" formControlName="name" />
+  </p>
+  <div *ngIf="!name?.valid && (name?.dirty || name?.touched)">
+    <div *ngIf="name?.errors?.['gte']">Name is not greater than 10</div>
+  </div>
+  <p>
+    <label for="email">Email</label>
+    <input type="email" id="email" formControlName="email" />
+  </p>
+  <div *ngIf="email?.errors?.['hasemail']">
+    Email exsited
+  </div>
+
+  <p>
+    <button type="submit" [disabled]="!form.valid">Submit</button>
+  </p>
+</form>

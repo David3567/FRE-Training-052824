@@ -30,7 +30,7 @@ export class ValidatorsComponent implements OnInit {
   ngOnInit() {
     this.form = this.fb.group({
       name: ['', [this.gte]],
-      email: ['', [], [this.asyncCheckEmail()]]
+      email: ['', [], [this.asyncCheckEmail()]] // asyncCheckEmail() has a parentheses because it returns a observable. Also, it is the third variable
     });
   }
 

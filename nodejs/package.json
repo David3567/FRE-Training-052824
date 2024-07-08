@@ -1,0 +1,19 @@
+{
+	"scripts": {
+		"start": "nodemon --exec ts-node ./src/app.ts",
+		"start:dev": "cross-env NODE_ENV=production npx nodemon --exec ts-node ./src/app.ts",
+		"build:pro": "tsc"
+	},
+	"dependencies": {
+		"@types/express": "^4.17.21",
+		"dotenv": "^16.4.5",
+		"express": "^4.19.2"
+	},
+	"devDependencies": {
+		"@types/dotenv": "^8.2.0",
+		"cross-env": "^7.0.3",
+		"nodemon": "^3.1.4",
+		"ts-node": "^10.9.2",
+		"typescript": "^5.5.3"
+	}
+}

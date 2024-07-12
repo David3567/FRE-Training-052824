@@ -1,0 +1,29 @@
+<div class="container">
+  <nav class="navbar navbar-default">
+    SelectUser:
+    <div>
+      <button (click)="switch('User')">User</button>
+      <button (click)="switch('Super')">Super</button>
+      <button (click)="switch('Admin')">Admin</button>
+    </div>
+    <div class="container-fluid">
+      <div class="navbar-header">
+        <a class="navbar-brand" [routerLink]="['/']">
+          <strong> {{ title }} </strong>
+        </a>
+      </div>
+      <ul class="nav navbar-nav">
+        <li><a [routerLink]="['home']">Home</a></li>
+        <li>
+          <a [routerLink]="['product1']">Product1</a>
+        </li>
+        <li>
+          <a [routerLink]="['product2']">Product2</a>
+          <span *ngIf="authService.loading$ | async">Loading...</span>
+        </li>
+        <li><a [routerLink]="['contact']">Contact us</a></li>
+      </ul>
+    </div>
+  </nav>
+  <router-outlet></router-outlet>
+</div>

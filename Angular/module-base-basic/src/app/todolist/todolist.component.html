@@ -3,7 +3,6 @@
     <header class="todolist__header">todo list</header>
     <input
       class="todolist__input"
-      [(ngModel)]="todotitle"
       #input
       (keyup.enter)="onAddTodo(input.value)"
     />

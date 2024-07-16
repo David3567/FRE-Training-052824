@@ -1,24 +1,27 @@
-import { Component, HostListener, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Observable, Subject, takeUntil } from 'rxjs';
+
 import { Todo } from '../interfaces/todo.interface';
 import { TodoService } from '../services/todo.service';
-import { Observable, interval, take } from 'rxjs';
 
 @Component({
   selector: 'app-todolist',
   templateUrl: './todolist.component.html',
   styleUrl: './todolist.component.scss',
 })
-export class TodolistComponent implements OnInit {
+export class TodolistComponent implements OnInit, OnDestroy {
   // variable
-  container = 'container_test';
-  todotitle = '';
-  todos$ = this.todoService.todos$;
+  todos$: Observable<Todo[]> = this.todoService.todos$;
+  private notifier = new Subject();
 
   // lifecycle
   constructor(private readonly todoService: TodoService) {}
 
   ngOnInit(): void {
-    this.todoService.getTodos().subscribe();
+    this.todoService.getTodos().pipe(takeUntil(this.notifier)).subscribe();
+  }
+  ngOnDestroy(): void {
+    this.stopObs();
   }
 
   // methods
@@ -27,6 +30,19 @@ export class TodolistComponent implements OnInit {
   }
 
   onAddTodo(title: string) {
-    console.log(title);
+    this.todoService
+      .addTodo({
+        title,
+        userId: 44,
+        completed: false,
+        id: 0,
+      })
+      .pipe(takeUntil(this.notifier))
+      .subscribe();
+  }
+
+  private stopObs() {
+    this.notifier.next(null);
+    this.notifier.complete();
   }
 }

@@ -1,7 +1,7 @@
 import { Component, HostListener, OnInit } from '@angular/core';
 import { Todo } from '../interfaces/todo.interface';
 import { TodoService } from '../services/todo.service';
-import { interval, take } from 'rxjs';
+import { Observable, interval, take } from 'rxjs';
 
 @Component({
   selector: 'app-todolist',
@@ -11,12 +11,14 @@ import { interval, take } from 'rxjs';
 export class TodolistComponent implements OnInit {
   // variable
   container = 'container_test';
-  todotitle: string = '';
+  todotitle = '';
+  todos$ = this.todoService.todos$;
 
   // lifecycle
-  constructor(public todoService: TodoService) {}
+  constructor(private readonly todoService: TodoService) {}
+
   ngOnInit(): void {
-    this.todoService.getTodos();
+    this.todoService.getTodos().subscribe();
   }
 
   // methods

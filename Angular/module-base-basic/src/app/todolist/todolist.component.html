@@ -7,9 +7,9 @@
       #input
       (keyup.enter)="onAddTodo(input.value)"
     />
-    <ul id="todolist_container">
+    <ul id="todolist_container" *ngIf="todos$ | async as todos">
       <app-todo-item
-        *ngFor="let item of todoService.todos$ | async"
+        *ngFor="let item of todos"
         [item]="item"
         [hello]="'hi'"
         (deleteItem)="deleteTodo($event)"

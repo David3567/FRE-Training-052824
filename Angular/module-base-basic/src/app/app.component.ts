@@ -8,9 +8,5 @@ import { TodoService } from './services/todo.service';
   providers: [],
 })
 export class AppComponent {
-  constructor(private todoService: TodoService) {
-    this.todoService.todos$.subscribe((res) => {
-      console.log('from appcomponent: ', res);
-    });
-  }
+  constructor() {}
 }

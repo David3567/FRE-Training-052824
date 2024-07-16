@@ -6,16 +6,16 @@ import { BehaviorSubject, Observable, tap } from 'rxjs';
 @Injectable()
 export class TodoService {
   private baseUrl = 'https://jsonplaceholder.typicode.com/todos';
-  todos$ = new BehaviorSubject<Todo[]>([]);
+  private todosSub$ = new BehaviorSubject<Todo[]>([]);
+  todos$ = this.todosSub$.asObservable();
 
   constructor(private http: HttpClient) {}
 
   getTodos(): Observable<Todo[]> {
     return this.http.get<Todo[]>(this.baseUrl).pipe(
       tap((todos) => {
-        this.todos$.next(todos);
+        this.todosSub$.next(todos.reverse());
       })
     );
-    // return fetch(this.baseUrl).then((response) => response.json()); // axios
   }
 }

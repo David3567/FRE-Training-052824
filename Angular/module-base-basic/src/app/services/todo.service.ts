@@ -8,13 +8,14 @@ export class TodoService {
   private baseUrl = 'https://jsonplaceholder.typicode.com/todos';
   private http: HttpClient = inject(HttpClient);
 
-  private todosSub$ = new BehaviorSubject<Todo[]>([]);
+  private todosSub$ = new BehaviorSubject<Todo[]>([]); // store
   todos$ = this.todosSub$.asObservable();
 
+  // function: action
   getTodos(): Observable<Todo[]> {
     return this.http.get<Todo[]>(this.baseUrl).pipe(
       tap((todos) => {
-        this.todosSub$.next(todos.reverse());
+        this.todosSub$.next(todos.reverse()); // reducer
       })
     );
   }

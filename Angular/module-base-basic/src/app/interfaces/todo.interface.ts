@@ -4,3 +4,8 @@ export interface Todo {
   title: string;
   completed: boolean;
 }
+
+export interface TodoState {
+  todolist: Todo[];
+  err: string;
+}

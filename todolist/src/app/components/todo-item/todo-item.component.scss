@@ -1,0 +1,39 @@
+li {
+  text-transform: capitalize;
+  font-size: 1rem;
+  letter-spacing: 2px;
+
+  width: 100%;
+  height: var(--height-todolist-header);
+  line-height: var(--height-todolist-header);
+
+  border: none;
+  outline: none;
+  list-style: none;
+  padding-left: 10px;
+}
+
+li {
+  display: flex;
+  justify-content: space-between;
+}
+li button {
+  margin-right: 10px;
+  border: none;
+  background-color: rgba(0, 0, 0, 0);
+  color: rgb(255, 0, 0);
+  font-size: 1.3rem;
+}
+li button:hover {
+  font-size: 1.4rem;
+}
+li button:active {
+  font-size: 1.2rem;
+}
+
+li:hover {
+  background-color: var(--color-red-li-hover);
+}
+li span {
+  overflow: hidden;
+}

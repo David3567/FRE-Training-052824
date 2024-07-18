@@ -1,0 +1,14 @@
+<section class="todolist">
+  <header class="todolist__header">todo list</header>
+  <!-- <input class="todolist__input" #inputbox [(ngModel)]="inputval" /> -->
+  <form [formGroup]="form">
+    <input class="todolist__input" formControlName="inputbox" />
+  </form>
+  <ul id="todolist_container">
+    <app-todo-item
+      *ngFor="let todo of todolist$ | async"
+      [item]="todo"
+      (emitId)="deleteTodo($event)"
+    />
+  </ul>
+</section>

@@ -199,6 +199,8 @@
 // }
 // Employee.prototype = Object.create(Person.prototype); // chain, inheritance
 // Employee.prototype = { ...Person.prototype };
+// console.log(e1 instanceof Person);
+
 // Employee.prototype = Person.prototype;
 // Employee.prototype.__proto__ = Person.prototype;
 

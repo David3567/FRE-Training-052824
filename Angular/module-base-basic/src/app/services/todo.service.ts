@@ -22,7 +22,10 @@ export class TodoService {
 
   addTodo(todo: Todo): Observable<Todo> {
     return this.http.post<Todo>(this.baseUrl, todo).pipe(
-      tap((todo) => {
+      tap((todo: Todo) => {
+        const newTodo = new Todo();
+        newTodo.foo?.call(todo);
+
         const newlist: Todo[] = [todo, ...this.todosSub$.value];
         this.todosSub$.next(newlist);
       })
